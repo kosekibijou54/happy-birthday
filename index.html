@@ -85,35 +85,6 @@
       padding-bottom: 2rem;
     }
 
-    .gift-container {
-      margin: 3rem auto;
-    }
-
-    .gift-box {
-      width: 120px;
-      height: 120px;
-      background: url('gift.png') no-repeat center/cover;
-      margin: 0 auto;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .gift-box:hover {
-      transform: scale(1.1);
-    }
-
-    .surprise {
-      display: none;
-      margin-top: 1rem;
-      font-size: 1.2rem;
-      color: #ffd700;
-      animation: fadeIn 1s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
     @media (max-width: 480px) {
       h1 { font-size: 2rem; }
@@ -139,14 +110,6 @@
     <img class="slide" src="photo2.jpg" alt="Photo 2">
     <img class="slide" src="photo3.jpg" alt="Photo 3">
     <img class="slide" src="photo4.png" alt="Photo 4">
-  </div>
-
-  <!-- Gift Box Section -->
-  <div class="gift-container">
-    <div class="gift-box" id="gift"></div>
-    <div class="surprise" id="surprise">
-      <img src="https://i.imgur.com/hRqlIGv.jpg" alt="Ghibli Art" style="max-width: 90%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-top: 1rem;">
-    </div>
   </div>
 
   <!-- Message -->
