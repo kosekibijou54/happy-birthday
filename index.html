@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Happy Birthday, Dad!</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Open+Sans&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <style>
-    /* Base styles */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Open Sans', sans-serif;
@@ -23,11 +24,10 @@
     }
 
     header {
-  background: linear-gradient(to right, #2b5876, #4e4376);
-  padding: 3rem 1rem 2rem;
-  color: white;
-}
-
+      background: linear-gradient(to right, #2b5876, #4e4376);
+      padding: 3rem 1rem 2rem;
+      color: white;
+    }
 
     h1 {
       font-family: 'Playfair Display', serif;
@@ -42,8 +42,9 @@
 
     .slideshow-container {
       position: relative;
-      width: 320px;
-      height: 320px;
+      width: 90%;
+      max-width: 320px;
+      aspect-ratio: 1 / 1;
       margin: 2rem auto;
       border-radius: 20px;
       overflow: hidden;
@@ -84,11 +85,6 @@
       padding-bottom: 2rem;
     }
 
-    audio {
-      margin-top: 1.5rem;
-    }
-
-    /* Gift Box Styles */
     .gift-container {
       margin: 3rem auto;
     }
@@ -118,11 +114,18 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 2rem; }
+      .subtitle { font-size: 1rem; }
+      .message, .memories { padding: 1rem; font-size: 0.95rem; }
+      .gift-box { width: 90px; height: 90px; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Starry Night Background -->
+  <!-- Starry Background -->
   <canvas id="stars"></canvas>
 
   <header>
@@ -138,9 +141,15 @@
     <img class="slide" src="photo4.png" alt="Photo 4">
   </div>
 
+  <!-- Gift Box Section -->
+  <div class="gift-container">
+    <div class="gift-box" id="gift"></div>
+    <div class="surprise" id="surprise">
+      <img src="https://i.imgur.com/hRqlIGv.jpg" alt="Ghibli Art" style="max-width: 90%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); margin-top: 1rem;">
+    </div>
+  </div>
 
-
-  <!-- Message Section -->
+  <!-- Message -->
   <div class="message">
     <h2>Dear Dad,</h2>
     <p>Thank you for your wisdom, strength, and endless love. May your birthday be filled with all the joy you bring to others every single day. I’m grateful for every moment we share.</p>
@@ -148,20 +157,19 @@
     <p><strong>Your Son</strong></p>
   </div>
 
-  <!-- Background Music with Controls -->
-    <div style="margin-top: 2rem;">
+  <!-- Music Player -->
+  <div style="margin: 1.5rem auto;">
     <audio id="bg-music" preload="auto" controls loop>
       <source src="happy-birthday-323162.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
   </div>
-  
-  
+
   <footer>
     Made with love & gratitude — Happy Birthday!
   </footer>
 
-  <!-- JS for slideshow -->
+  <!-- Slideshow Script -->
   <script>
     const slides = document.querySelectorAll('.slide');
     let index = 0;
@@ -172,9 +180,27 @@
     }, 1000);
   </script>
 
+  <!-- Gift Box Reveal -->
+  <script>
+    document.getElementById('gift').addEventListener('click', () => {
+      const surprise = document.getElementById('surprise');
+      surprise.style.display = 'block';
+      surprise.scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 
+  <!-- Confetti on Load -->
+  <script>
+    window.addEventListener('load', () => {
+      confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+      setTimeout(() => {
+        confetti({ particleCount: 100, spread: 60, origin: { x: 0.2, y: 0.6 } });
+        confetti({ particleCount: 100, spread: 60, origin: { x: 0.8, y: 0.6 } });
+      }, 500);
+    });
+  </script>
 
-  <!-- Star Animation Script -->
+  <!-- Star Background Script -->
   <script>
     const canvas = document.getElementById("stars");
     const ctx = canvas.getContext("2d");
@@ -211,24 +237,5 @@
       canvas.height = window.innerHeight;
     });
   </script>
-  <script>
-    const music = document.getElementById("bg-music");
-  
-    function playMusic() {
-      music.volume = 0.5; // optional: set lower volume
-      music.play().catch(err => {
-        console.warn("Autoplay blocked, waiting for user gesture.");
-      });
-    }
-  
-    // Attempt autoplay on load
-    window.addEventListener("load", () => {
-      playMusic();
-  
-      // Retry on user click if blocked
-      document.body.addEventListener("click", playMusic, { once: true });
-    });
-  </script>
-  
 </body>
 </html>
